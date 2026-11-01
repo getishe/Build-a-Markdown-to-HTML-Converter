@@ -33,6 +33,10 @@ function convertMarkdown() {
     const expressQuote = regexQuote.exec(line);
 
     const expressQuoteBoldOne = expressQuoteBold.exec(line);
+    if (expressQuoteBoldOne) {
+      console.log(expressQuoteBoldOne);
+      return `<blockquote><strong>${expressQuoteBoldOne[2]}<em>${expressQuoteBoldOne[3]}</em></strong></blockquote>`;
+    }
     if (expressHead) {
       const tag = expressHead[1].length;
       return `<h${tag}><strong>${expressHead[2] || expressHead[3]}</strong></h${tag}>`;
@@ -56,12 +60,6 @@ function convertMarkdown() {
     }
     if (expressQuote) {
       return `<blockquote>${expressQuote[1]}</blockquote>`;
-    }
-    if (expressQuoteBoldOne) {
-      console.log(expressQuoteBoldOne);
-      // blockquote><strong>this is a <em>quote</em></strong></blockquote>
-      // <blockquote><strong>this is a <em>quote</em></strong></blockquote>
-      return `<blockquote><strong>${expressQuoteBoldOne[2]}</strong><em>${expressQuoteBoldOne[3]}</em></strong></blockquote>`;
     } else {
       return line;
     }
